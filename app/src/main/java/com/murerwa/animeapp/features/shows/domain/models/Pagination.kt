@@ -1,8 +1,13 @@
 package com.murerwa.animeapp.features.shows.domain.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Pagination(
-    val current_page: Int,
-    val has_next_page: Boolean,
+    @SerializedName("current_page")
+    val currentPage: Int,
+    @SerializedName("has_next_page")
+    val hasNextPage: Boolean,
     val items: Items,
-    val last_visible_page: Int
+    @SerializedName("last_visible_page")
+    val lastVisiblePage: Int
 )

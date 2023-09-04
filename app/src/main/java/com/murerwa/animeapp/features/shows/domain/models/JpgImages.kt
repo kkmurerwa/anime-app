@@ -1,7 +1,12 @@
 package com.murerwa.animeapp.features.shows.domain.models
 
+import com.google.gson.annotations.SerializedName
+
 data class JpgImages(
-    val image_url: String,
-    val large_image_url: String,
-    val small_image_url: String
+    @SerializedName("image_url")
+    val imageUrl: String,
+    @SerializedName("large_image_url")
+    val largeImageUrl: String,
+    @SerializedName("small_image_url")
+    val smallImageUrl: String
 )

@@ -1,8 +1,12 @@
 package com.murerwa.animeapp.features.shows.domain.models
 
+import com.google.gson.annotations.SerializedName
+
 data class Trailer(
-    val embed_url: String,
+    @SerializedName("embed_url")
+    val embedUrl: String,
     val images: Thumbnails,
     val url: String,
-    val youtube_id: String
+    @SerializedName("youtube_id")
+    val youtubeId: String
 )
