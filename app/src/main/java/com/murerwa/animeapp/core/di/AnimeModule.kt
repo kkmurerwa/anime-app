@@ -22,7 +22,7 @@ class AnimeModule {
     /** Retrofit */
     @Provides
     fun retrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl(Urls.BASE_URL)
+        .baseUrl(Urls.BASE_URL_SHOWS)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

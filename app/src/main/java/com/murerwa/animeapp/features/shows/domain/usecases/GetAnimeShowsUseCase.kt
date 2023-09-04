@@ -7,20 +7,22 @@ import com.murerwa.animeapp.features.shows.domain.repositories.AnimeShowsReposit
 import com.murerwa.rickandmortytesting.core.utils.readError
 import javax.inject.Inject
 
+/** Abstraction for easier testing and clean architecture */
 interface GetAnimeShowsUseCase {
     suspend fun execute(): UIState<List<Show>>
 }
 
+/** Implementation of the abstract class [GetAnimeShowsUseCase] */
 class GetAnimeShowsUseCaseImpl @Inject constructor(
     private val animeShowsRepository: AnimeShowsRepository
 ): GetAnimeShowsUseCase {
     override suspend fun execute(): UIState<List<Show>> {
         return when (val showsResponse = animeShowsRepository.getAnimeShows()) {
+            is NetworkResult.Success -> UIState.Success(showsResponse.value.shows)
             is NetworkResult.Failure -> UIState.Error(
                 errorMessage = showsResponse.errorBody.readError(),
                 isNetworkError = showsResponse.isNetworkError
             )
-            is NetworkResult.Success -> UIState.Success(showsResponse.value.shows)
         }
     }
 }
