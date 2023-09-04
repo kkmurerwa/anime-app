@@ -57,6 +57,18 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    // Test dependencies
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("com.google.dagger:hilt-android-testing:2.44.2")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    kaptTest("com.google.dagger:hilt-compiler:2.48")
 }
 
 kapt {
