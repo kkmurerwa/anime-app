@@ -61,6 +61,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.13.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     // Test dependencies
     testImplementation("junit:junit:4.13.2")
