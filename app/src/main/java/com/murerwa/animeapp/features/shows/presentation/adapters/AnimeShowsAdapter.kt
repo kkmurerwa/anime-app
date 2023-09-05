@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.murerwa.animeapp.core.utils.loadImage
 import com.murerwa.animeapp.databinding.ListItemShowBinding
 import com.murerwa.animeapp.features.shows.domain.models.Show
 
@@ -20,17 +21,25 @@ class AnimeShowsAdapter(
         )
     }
 
-//    override fun getItemCount(): Int = items.size
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val currentShow = items[position]
-        holder.bindView()
+        val currentShow = items[position]
+        holder.bindView(currentShow)
     }
 
     inner class ViewHolder(private val binding: ListItemShowBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bindView() {
+        fun bindView(show: Show) {
+            binding.apply {
+                textViewTitle.text = show.title
+                textViewRank.text = show.rank.toString()
+                textViewRating.text = String.format("%.1f", show.score * 10) + "% rating"
+                textViewYear.text = if (show.year != 0) show.year.toString() else "unknown"
 
+                imageViewShow.loadImage(
+                    show.images.jpg.largeImageUrl
+                )
+            }
         }
     }
 }
