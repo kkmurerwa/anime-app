@@ -6,6 +6,7 @@ import com.murerwa.animeapp.features.shows.data.datasources.LocalShowsDataSource
 import com.murerwa.animeapp.features.shows.data.datasources.RemoteShowsDataSource
 import com.murerwa.animeapp.features.shows.domain.entities.Show
 import com.murerwa.animeapp.features.shows.domain.repositories.AnimeShowsRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class AnimeShowsRepositoryImpl @Inject constructor(
@@ -19,6 +20,8 @@ class AnimeShowsRepositoryImpl @Inject constructor(
             if (cachedShows.isEmpty()) {
                 return getShowsFromNetwork()
             }
+
+            Timber.d("AnimeShowsRepositoryImpl: Shows in DB")
 
             return DataSourceState.Success(cachedShows)
         } catch (e: Exception) {
@@ -35,11 +38,13 @@ class AnimeShowsRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getShowsFromNetwork(): DataSourceState<List<Show>> {
+        Timber.d("AnimeShowsRepositoryImpl: Shows fetched from web")
         return when(val networkShows = remoteShowsDataSource.fetchShows()) {
             is DataSourceState.Success -> {
                 val shows = networkShows.value.shows.map { showModel ->
                     showModel.toShow()
                 }
+
                 localShowsDataSource.saveShowsToDb(shows)
 
                 DataSourceState.Success(shows)

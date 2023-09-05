@@ -8,15 +8,17 @@ import javax.inject.Inject
 
 /** Abstraction for easier testing and clean architecture */
 interface GetAnimeShowsUseCase {
-    suspend fun execute(): UIState<List<Show>>
+    suspend fun execute(refresh: Boolean): UIState<List<Show>>
 }
 
 /** Implementation of the abstract class [GetAnimeShowsUseCase] */
 class GetAnimeShowsUseCaseImpl @Inject constructor(
     private val animeShowsRepository: AnimeShowsRepository
 ): GetAnimeShowsUseCase {
-    override suspend fun execute(): UIState<List<Show>> {
-        return when (val showsResponse = animeShowsRepository.getAnimeShows()) {
+    override suspend fun execute(refresh: Boolean): UIState<List<Show>> {
+        return when (val showsResponse = if (refresh) animeShowsRepository.refreshShows()
+        else animeShowsRepository.getAnimeShows()
+        ) {
             is DataSourceState.Success -> UIState.Success(showsResponse.value)
             is DataSourceState.Failure -> UIState.Error(
                 errorMessage = showsResponse.errorBody,

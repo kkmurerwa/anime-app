@@ -2,6 +2,7 @@ package com.murerwa.animeapp.features.shows.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.murerwa.animeapp.R
 import com.murerwa.animeapp.core.network.UIState
@@ -18,40 +19,59 @@ class AnimeShowsFragment: Fragment(R.layout.fragment_anime_shows) {
     @Inject
     lateinit var viewModel: AnimeShowsViewModel
 
+    private var _binding: FragmentAnimeShowsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchShows()
+        _binding = FragmentAnimeShowsBinding.bind(requireView())
+
+
+        binding.swipeRefreshLayoutShows.setOnRefreshListener {
+            fetchShows(refresh = true)
+        }
+
+        fetchShows(false)
     }
 
-    private fun fetchShows() {
-        viewModel.getShows()
+    private fun fetchShows(refresh: Boolean = false) {
+        viewModel.getShows(refresh)
 
         viewModel.shows.observe(viewLifecycleOwner) { uistate ->
             when (uistate) {
-                is UIState.Loading -> {}
+                is UIState.Loading -> {
+                    if (!refresh) {
+                        binding.progressBarShows.isVisible = true
+                    }
+                }
                 is UIState.Success ->{
                     val shows = uistate.value
 
                     Timber.d("Shows: $shows")
 
-                    bindViews(shows)
+                    bindRecyclerView(shows)
+
+                    binding.swipeRefreshLayoutShows.isRefreshing = false
+                    binding.progressBarShows.isVisible = false
                 }
                 is UIState.Error -> {
+                    binding.swipeRefreshLayoutShows.isRefreshing = false
+                    binding.progressBarShows.isVisible = false
                     Timber.d("Shows: Error occurred - ${uistate.errorMessage}")
                 }
             }
         }
     }
 
-    private fun bindViews(shows: List<Show>) {
-        var binding = FragmentAnimeShowsBinding.bind(requireView())
-
+    private fun bindRecyclerView(shows: List<Show>) {
         val adapter = AnimeShowsAdapter(shows)
         binding.recyclerViewShows.adapter = adapter
     }
 
     override fun onDestroy() {
+        _binding = null
+
         super.onDestroy()
     }
 }

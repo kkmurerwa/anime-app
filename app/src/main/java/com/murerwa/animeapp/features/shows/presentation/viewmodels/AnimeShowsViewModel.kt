@@ -14,7 +14,7 @@ class AnimeShowsViewModel @Inject constructor(
 ): ViewModel() {
     val shows = MutableLiveData<UIState<List<Show>>>(UIState.Loading)
 
-    fun getShows() = viewModelScope.launch {
-        shows.value = getAnimeShowsUseCase.execute()
+    fun getShows(refresh: Boolean) = viewModelScope.launch {
+        shows.value = getAnimeShowsUseCase.execute(refresh)
     }
 }

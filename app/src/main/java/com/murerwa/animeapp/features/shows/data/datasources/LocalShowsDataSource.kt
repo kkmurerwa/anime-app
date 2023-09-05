@@ -2,6 +2,7 @@ package com.murerwa.animeapp.features.shows.data.datasources
 
 import com.murerwa.animeapp.features.shows.data.daos.ShowsDao
 import com.murerwa.animeapp.features.shows.domain.entities.Show
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -39,6 +40,7 @@ class LocalShowsDataSourceImpl @Inject constructor(
     }
 
     override suspend fun saveShowsToDb(shows: List<Show>) {
-        dao.insertShows(shows)
+        val response = dao.insertShows(shows)
+        Timber.d("AnimeShowsRepositoryImpl: Save response ${response.toList()}")
     }
 }
