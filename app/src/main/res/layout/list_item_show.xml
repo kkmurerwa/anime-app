@@ -76,6 +76,8 @@
                 android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:padding="5dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
@@ -100,7 +102,7 @@
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="3dp"
                 android:textColor="@color/white"
-                tools:text="9.1/10" />
+                tools:text="91%" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -3,6 +3,7 @@ package com.murerwa.animeapp.core.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -57,4 +58,8 @@ fun Bitmap.convertToMultipart(
     val requestBody = imageFile2.asRequestBody("image/bmp".toMediaTypeOrNull())
 
     return MultipartBody.Part.createFormData(fileName, imageFile.name, requestBody)
+}
+
+fun showToast(context: Context, message: String, length: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(context, message, length).show()
 }

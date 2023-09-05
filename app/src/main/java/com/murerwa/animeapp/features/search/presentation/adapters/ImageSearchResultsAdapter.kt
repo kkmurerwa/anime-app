@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.murerwa.animeapp.R
+import com.murerwa.animeapp.core.utils.loadImage
 import com.murerwa.animeapp.databinding.ListItemSearchResultBinding
 import com.murerwa.animeapp.features.search.domain.models.SearchResult
 
@@ -33,6 +35,14 @@ class ImageSearchResultsAdapter(
             binding.apply {
                 textViewFileName.text = result.filename
                 textViewSimilarity.text = result.similarity.toString()
+                textViewSimilarity.text = binding.root.context.getString(
+                    R.string.template_percentage,
+                    String.format("%.1f", result.similarity * 100),
+                    "similarity"
+                )
+                imageViewSearchResult.loadImage(
+                    result.image
+                )
             }
         }
     }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.murerwa.animeapp.R
 import com.murerwa.animeapp.core.network.UIState
 import com.murerwa.animeapp.core.utils.convertToMultipart
+import com.murerwa.animeapp.core.utils.showToast
 import com.murerwa.animeapp.databinding.FragmentImageSearchBinding
 import com.murerwa.animeapp.features.search.presentation.adapters.ImageSearchResultsAdapter
 import com.murerwa.animeapp.features.search.presentation.viewmodels.ImageSearchViewModel
@@ -59,13 +60,15 @@ class ImageSearchFragment : Fragment(R.layout.fragment_image_search) {
             val data: Intent? = result.data
             val extras: Bundle? = data?.extras
 
-            val fileUri = data?.data!!
-
             // For null safety, make sure data is not null
             if (data?.data == null && extras?.isEmpty == true) {
                 Timber.d("File Uri and extras returned is null")
+
+                showToast(requireContext(), "Sorry, we could not fetch the selected image")
                 return@registerForActivityResult
             }
+
+            val fileUri = data?.data!!
 
             val selectedImageBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 ImageDecoder.decodeBitmap(
@@ -77,6 +80,8 @@ class ImageSearchFragment : Fragment(R.layout.fragment_image_search) {
             } else {
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, fileUri)
             }
+
+            binding.imageViewSelectedImage.setImageBitmap(selectedImageBitmap)
 
             val imageMultipart = selectedImageBitmap.convertToMultipart(requireContext())
 
