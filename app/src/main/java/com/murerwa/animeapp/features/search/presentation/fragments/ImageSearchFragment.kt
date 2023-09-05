@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.murerwa.animeapp.R
 import com.murerwa.animeapp.core.network.UIState
@@ -94,8 +95,11 @@ class ImageSearchFragment : Fragment(R.layout.fragment_image_search) {
 
         viewModel.searchResults.observe(viewLifecycleOwner) { uistate ->
             when(uistate) {
-                is UIState.Loading -> {}
+                is UIState.Loading -> {
+                    binding.progressBarSearch.isVisible = true
+                }
                 is UIState.Success -> {
+                    binding.progressBarSearch.isVisible = false
                     Timber.d("Request Success: ${uistate.value}")
                     val adapter = ImageSearchResultsAdapter(
                         uistate.value
@@ -103,6 +107,7 @@ class ImageSearchFragment : Fragment(R.layout.fragment_image_search) {
                     binding.recyclerViewSearchResults.adapter = adapter
                 }
                 is UIState.Error -> {
+                    binding.progressBarSearch.isVisible = false
                     Timber.d("Request failed")
                 }
             }

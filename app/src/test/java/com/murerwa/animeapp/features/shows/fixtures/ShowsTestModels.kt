@@ -2,25 +2,30 @@ package com.murerwa.animeapp.features.shows.fixtures
 
 import com.murerwa.animeapp.core.network.DataSourceState
 import com.murerwa.animeapp.core.network.UIState
-import com.murerwa.animeapp.features.shows.domain.entities.Show
+import com.murerwa.animeapp.features.shows.data.models.Images
+import com.murerwa.animeapp.features.shows.data.models.Items
+import com.murerwa.animeapp.features.shows.data.models.JpgImages
+import com.murerwa.animeapp.features.shows.data.models.Pagination
+import com.murerwa.animeapp.features.shows.data.models.ShowModel
+import com.murerwa.animeapp.features.shows.data.models.Thumbnails
+import com.murerwa.animeapp.features.shows.data.models.Trailer
 
-//val tPagination = Pagination(
-//    currentPage = 1,
-//    hasNextPage = true,
-//    items = Items(
-//        count = 1,
-//        perPage = 2,
-//        total = 2
-//    ),
-//    lastVisiblePage = 1
-//)
+val tPagination = Pagination(
+    currentPage = 1,
+    hasNextPage = true,
+    items = Items(
+        count = 1,
+        perPage = 2,
+        total = 2
+    ),
+    lastVisiblePage = 1
+)
 
-val tShow = Show(
+val tShowModel = ShowModel(
     airing = false,
     background = "",
     favorites = 1,
     id = 1,
-    image = "",
     rank = 1,
     rating = "1",
     score = Double.MIN_VALUE,
@@ -30,10 +35,28 @@ val tShow = Show(
     status = "",
     synopsis = "",
     title = "",
-    trailer = "",
+    trailer = Trailer(
+        embedUrl = "",
+        url = "",
+        youtubeId = "",
+        images = Thumbnails(
+            imageUrl = "",
+            largeImageUrl = "",
+            maximumImageUrl = "",
+            mediumImageUrl = "",
+            smallImageUrl = ""
+        )
+    ),
     type = "",
     url = "",
-    year = 2021
+    images = Images(
+        jpg = JpgImages(
+            imageUrl = "",
+            largeImageUrl = "",
+            smallImageUrl = ""
+        )
+    ),
+    year = 2023
 )
 
 val tExpectedNetworkResultFailure = DataSourceState.Failure(

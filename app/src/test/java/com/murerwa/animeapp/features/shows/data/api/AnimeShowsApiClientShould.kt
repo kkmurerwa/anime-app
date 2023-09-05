@@ -1,8 +1,9 @@
 package com.murerwa.animeapp.features.shows.data.api
 
 import com.google.gson.Gson
+import com.murerwa.animeapp.features.shows.data.models.AnimeListResponse
 import com.murerwa.animeapp.features.shows.fixtures.tPagination
-import com.murerwa.animeapp.features.shows.fixtures.tShow
+import com.murerwa.animeapp.features.shows.fixtures.tShowModel
 import com.murerwa.animeapp.utils.BaseUnitTest
 import com.murerwa.animeapp.utils.RetrofitHelper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,7 +38,7 @@ class AnimeShowsApiClientShould: BaseUnitTest() {
     @Test
     fun returnCharactersIfGetShowsSuccess() = runTest {
         val expected = AnimeListResponse(
-            shows = listOf(tShow),
+            shows = listOf(tShowModel),
             pagination = tPagination
         )
         setSuccessWebserverResponse(expected)
