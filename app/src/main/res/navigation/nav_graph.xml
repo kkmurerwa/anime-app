@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/anime_shows_fragment"
-        android:name="com.murerwa.animeapp.AnimeShowsFragment"
+        android:name="com.murerwa.animeapp.features.shows.presentation.fragments.AnimeShowsFragment"
         android:label="fragment_anime_shows"
         tools:layout="@layout/fragment_anime_shows" />
     <fragment
         android:id="@+id/fragment_image_search"
-        android:name="com.murerwa.animeapp.ImageSearchFragment"
+        android:name="com.murerwa.animeapp.features.search.presentation.fragments.ImageSearchFragment"
         android:label="fragment_image_search"
         tools:layout="@layout/fragment_image_search" />
 </navigation>

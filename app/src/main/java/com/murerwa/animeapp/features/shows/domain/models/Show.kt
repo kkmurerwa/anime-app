@@ -4,14 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Show(
     val airing: Boolean,
-    val approved: Boolean,
     val background: String,
     val favorites: Int,
     @SerializedName("mal_id")
     val id: Int,
     val images: Images,
-    val members: Int,
-    val popularity: Int,
     val rank: Int,
     val rating: String,
     val score: Double,
