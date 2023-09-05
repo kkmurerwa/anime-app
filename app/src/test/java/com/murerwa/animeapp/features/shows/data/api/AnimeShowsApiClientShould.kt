@@ -1,7 +1,6 @@
 package com.murerwa.animeapp.features.shows.data.api
 
 import com.google.gson.Gson
-import com.murerwa.animeapp.features.shows.domain.models.AnimeListResponse
 import com.murerwa.animeapp.features.shows.fixtures.tPagination
 import com.murerwa.animeapp.features.shows.fixtures.tShow
 import com.murerwa.animeapp.utils.BaseUnitTest

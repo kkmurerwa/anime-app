@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import com.murerwa.animeapp.R
 import com.murerwa.animeapp.core.network.UIState
 import com.murerwa.animeapp.databinding.FragmentAnimeShowsBinding
-import com.murerwa.animeapp.features.shows.domain.models.Show
+import com.murerwa.animeapp.features.shows.domain.entities.Show
 import com.murerwa.animeapp.features.shows.presentation.adapters.AnimeShowsAdapter
 import com.murerwa.animeapp.features.shows.presentation.viewmodels.AnimeShowsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,9 +33,13 @@ class AnimeShowsFragment: Fragment(R.layout.fragment_anime_shows) {
                 is UIState.Success ->{
                     val shows = uistate.value
 
+                    Timber.d("Shows: $shows")
+
                     bindViews(shows)
                 }
-                is UIState.Error -> {}
+                is UIState.Error -> {
+                    Timber.d("Shows: Error occurred - ${uistate.errorMessage}")
+                }
             }
         }
     }

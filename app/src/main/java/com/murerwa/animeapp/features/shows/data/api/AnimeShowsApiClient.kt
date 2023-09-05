@@ -1,7 +1,7 @@
 package com.murerwa.animeapp.features.shows.data.api
 
 import com.murerwa.animeapp.core.utils.AppConstants
-import com.murerwa.animeapp.features.shows.domain.models.AnimeListResponse
+import com.murerwa.animeapp.features.shows.data.models.AnimeListResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

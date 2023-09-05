@@ -1,9 +1,8 @@
 package com.murerwa.animeapp.features.shows.domain.usecases
 
-import com.murerwa.animeapp.core.network.NetworkResult
+import com.murerwa.animeapp.core.network.DataSourceState
 import com.murerwa.animeapp.core.network.UIState
 import com.murerwa.animeapp.features.shows.data.repositories.AnimeShowsRepositoryImpl
-import com.murerwa.animeapp.features.shows.domain.models.AnimeListResponse
 import com.murerwa.animeapp.features.shows.fixtures.tExpectedNetworkResultFailure
 import com.murerwa.animeapp.features.shows.fixtures.tPagination
 import com.murerwa.animeapp.features.shows.fixtures.tShow
@@ -31,7 +30,7 @@ class GetAnimeShowsUseCaseShould: BaseUnitTest() {
     @Test
     fun invokeAnimeShowsRepositoryOnExecuteCalled() = runTest {
         whenever(mockRepository.getAnimeShows())
-            .thenReturn(NetworkResult.Success(fakeResponse))
+            .thenReturn(DataSourceState.Success(fakeResponse))
 
         getAnimeShowsUseCase.execute()
 
@@ -41,7 +40,7 @@ class GetAnimeShowsUseCaseShould: BaseUnitTest() {
     @Test
     fun getShowsFromRepositoryAsUIStateOfTypeSuccessIfSuccessful() = runTest {
         whenever(mockRepository.getAnimeShows())
-            .thenReturn(NetworkResult.Success(fakeResponse))
+            .thenReturn(DataSourceState.Success(fakeResponse))
 
         val actual = getAnimeShowsUseCase.execute()
 
@@ -51,7 +50,7 @@ class GetAnimeShowsUseCaseShould: BaseUnitTest() {
     @Test
     fun getListOfShowsFromRepositoryIfSuccessful() = runTest {
         whenever(mockRepository.getAnimeShows())
-            .thenReturn(NetworkResult.Success(fakeResponse))
+            .thenReturn(DataSourceState.Success(fakeResponse))
 
         val actual = getAnimeShowsUseCase.execute()
 

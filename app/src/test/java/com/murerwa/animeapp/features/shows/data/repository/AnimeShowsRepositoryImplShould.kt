@@ -1,9 +1,8 @@
 package com.murerwa.animeapp.features.shows.data.repository
 
-import com.murerwa.animeapp.core.network.NetworkResult
+import com.murerwa.animeapp.core.network.DataSourceState
 import com.murerwa.animeapp.features.shows.data.api.AnimeShowsApiClient
 import com.murerwa.animeapp.features.shows.data.repositories.AnimeShowsRepositoryImpl
-import com.murerwa.animeapp.features.shows.domain.models.AnimeListResponse
 import com.murerwa.animeapp.features.shows.fixtures.tPagination
 import com.murerwa.animeapp.features.shows.fixtures.tShow
 import com.murerwa.animeapp.utils.BaseUnitTest
@@ -41,7 +40,7 @@ class AnimeShowsRepositoryImplShould: BaseUnitTest() {
 
         val actual = repository.getAnimeShows()
 
-        assertEquals(actual::class, NetworkResult.Success::class)
+        assertEquals(actual::class, DataSourceState.Success::class)
     }
 
     @Test
@@ -50,7 +49,7 @@ class AnimeShowsRepositoryImplShould: BaseUnitTest() {
 
         val actual = repository.getAnimeShows()
 
-        assertEquals(NetworkResult.Success(fakeResponse), actual)
+        assertEquals(DataSourceState.Success(fakeResponse), actual)
     }
 
     @Test
@@ -59,6 +58,6 @@ class AnimeShowsRepositoryImplShould: BaseUnitTest() {
 
         val actual = repository.getAnimeShows()
 
-        assertEquals(actual::class, NetworkResult.Failure::class)
+        assertEquals(actual::class, DataSourceState.Failure::class)
     }
 }

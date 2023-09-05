@@ -1,5 +1,6 @@
 package com.murerwa.animeapp.core.network
 
+import com.murerwa.rickandmortytesting.core.utils.readError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -12,22 +13,22 @@ import timber.log.Timber
 open class BaseRepository {
     suspend fun <T> safeApiCall(
         apiCall: suspend () -> T
-    ): NetworkResult<T> {
+    ): DataSourceState<T> {
         return withContext(Dispatchers.IO) {
             try {
-                NetworkResult.Success(apiCall.invoke())
+                DataSourceState.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 Timber.d(throwable.toString())
                 when (throwable) {
                     is HttpException -> {
-                        NetworkResult.Failure(
+                        DataSourceState.Failure(
                             false,
                             throwable.code(),
-                            throwable.response()?.errorBody()
+                            throwable.response()?.errorBody().readError()
                         )
                     }
                     else -> {
-                        NetworkResult.Failure(true, null, null)
+                        DataSourceState.Failure(true, null, null)
                     }
                 }
             }

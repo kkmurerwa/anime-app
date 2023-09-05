@@ -13,12 +13,12 @@ class BaseRepositoryShould: BaseUnitTest() {
     @Test
     fun returnNetworkResultSuccessWhenApiCallIsSuccessful() = runTest {
         val result = baseRepository.safeApiCall { "Success" }
-        assertTrue(result is NetworkResult.Success)
+        assertTrue(result is DataSourceState.Success)
     }
 
     @Test
     fun returnNetworkResultFailureWhenApiCallIsUnsuccessful() = runTest {
         val result = baseRepository.safeApiCall { throw Exception("Error") }
-        assertTrue(result is NetworkResult.Failure)
+        assertTrue(result is DataSourceState.Failure)
     }
 }

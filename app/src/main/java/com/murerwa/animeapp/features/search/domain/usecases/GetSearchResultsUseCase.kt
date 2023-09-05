@@ -1,10 +1,9 @@
 package com.murerwa.animeapp.features.search.domain.usecases
 
-import com.murerwa.animeapp.core.network.NetworkResult
+import com.murerwa.animeapp.core.network.DataSourceState
 import com.murerwa.animeapp.core.network.UIState
 import com.murerwa.animeapp.features.search.domain.models.SearchResult
 import com.murerwa.animeapp.features.search.domain.repositories.ImageSearchRepository
-import com.murerwa.rickandmortytesting.core.utils.readError
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
@@ -19,9 +18,9 @@ class GetSearchResultsUseCaseImpl @Inject constructor(
 ): GetSearchResultsUseCase {
     override suspend fun execute(image: MultipartBody.Part): UIState<List<SearchResult>> {
         return when (val searchResults = imageSearchRepository.searchImage(image)) {
-            is NetworkResult.Success -> UIState.Success(searchResults.value.result)
-            is NetworkResult.Failure -> UIState.Error(
-                errorMessage = searchResults.errorBody.readError(),
+            is DataSourceState.Success -> UIState.Success(searchResults.value.result)
+            is DataSourceState.Failure -> UIState.Error(
+                errorMessage = searchResults.errorBody,
                 isNetworkError = searchResults.isNetworkError
             )
         }

@@ -1,4 +1,4 @@
-package com.murerwa.animeapp.features.shows.domain.models
+package com.murerwa.animeapp.features.shows.data.models
 
 import com.google.gson.annotations.SerializedName
 

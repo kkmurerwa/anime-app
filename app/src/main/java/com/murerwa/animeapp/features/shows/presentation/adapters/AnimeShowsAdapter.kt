@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.murerwa.animeapp.R
 import com.murerwa.animeapp.core.utils.loadImage
 import com.murerwa.animeapp.databinding.ListItemShowBinding
-import com.murerwa.animeapp.features.shows.domain.models.Show
+import com.murerwa.animeapp.features.shows.domain.entities.Show
 
 class AnimeShowsAdapter(
     private val items: List<Show>
@@ -34,7 +34,6 @@ class AnimeShowsAdapter(
             binding.apply {
                 textViewTitle.text = show.title
                 textViewRank.text = show.rank.toString()
-                textViewRating.text = String.format("%.1f", show.score * 10) + "% rating"
                 textViewRating.text = binding.root.context.getString(
                     R.string.template_percentage,
                     String.format("%.1f", show.score * 10),
@@ -43,7 +42,7 @@ class AnimeShowsAdapter(
                 textViewYear.text = if (show.year != 0) show.year.toString() else "unknown"
 
                 imageViewShow.loadImage(
-                    show.images.jpg.largeImageUrl
+                    show.image
                 )
             }
         }
